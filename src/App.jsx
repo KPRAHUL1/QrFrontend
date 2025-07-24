@@ -4,6 +4,7 @@ import QRPage from './page/QrPage'
 import AdminPage from './page/AdminPage'
 import RegisterForm from './Form/RegistrationForm'
 import EditModal from './Editmodel'
+import CustomizeForm from './page/CustmizeForm'
 function App() {
 
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<QRPage/>} />
         <Route path="/register" element={<RegisterForm/>}/>
         <Route path="/edit" element={<EditModal/>}/>
+         <Route path="/form" element={<CustomizeForm/>}/>
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </BrowserRouter>

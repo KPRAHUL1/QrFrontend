@@ -1,31 +1,29 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Loader2 } from 'lucide-react'; // Import Loader2 icon for loading state
+import { Loader2 } from 'lucide-react';
 
 const RegisterForm = () => {
   const { register, handleSubmit, reset } = useForm();
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading indicator
-  const [registrationSuccess, setRegistrationSuccess] = useState(false); // New state for success message
+  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const getNextWorkshopDate = () => {
     const today = new Date();
     const nextWorkshop = new Date(today);
-    nextWorkshop.setDate(today.getDate() + 7); // Add 7 days to today's date
+    nextWorkshop.setDate(today.getDate() + 7);
 
-    // Format the date nicely (e.g., "July 31, 2025")
     const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     const formattedDate = nextWorkshop.toLocaleDateString('en-US', dateOptions);
 
-    // Add the fixed time "4:00 PM"
-    return `${formattedDate} at 4:00 PM`; // Concatenate date and time
+    return `${formattedDate} at 4:00 PM`;
   };
 
   const workshopDate = getNextWorkshopDate();
 
   const onSubmit = async (data) => {
-    setIsSubmitting(true); // Set loading to true when submission starts
-    setRegistrationSuccess(false); // Reset success state
+    setIsSubmitting(true);
+    setRegistrationSuccess(false);
 
     const formData = new FormData();
     for (let key in data) {
@@ -44,15 +42,14 @@ const RegisterForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setRegistrationSuccess(true); // Set success to true on successful registration
-      reset(); // Clear the form after successful submission
-      // Optionally, you can hide the success message after a few seconds
-      // setTimeout(() => setRegistrationSuccess(false), 5000);
+      setRegistrationSuccess(true);
+      reset(); 
+
     } catch (error) {
       console.error("Registration failed:", error.response?.data || error.message);
-      alert(`Registration failed: ${error.response?.data?.error || "Please try again."}`); // Using alert for now, consider a custom modal
+      alert(`Registration failed: ${error.response?.data?.error || "Please try again."}`); 
     } finally {
-      setIsSubmitting(false); // Set loading to false after submission completes (success or failure)
+      setIsSubmitting(false);
     }
   };
 
@@ -81,7 +78,7 @@ const RegisterForm = () => {
                   Thank you for registering for the AWS Workshop. We look forward to seeing you!
                 </p>
                 <button
-                  onClick={() => setRegistrationSuccess(false)} // Allow user to go back to form
+                  onClick={() => setRegistrationSuccess(false)} 
                   className="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Register Another
@@ -93,7 +90,7 @@ const RegisterForm = () => {
                   Register for the Event
                 </h2>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  {/* Full Name */}
+      
                   <div>
                     <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                       Full Name
@@ -106,7 +103,7 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* Email */}
+              
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email
@@ -120,7 +117,7 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* Phone */}
+         
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number
@@ -133,7 +130,7 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* College Name */}
+          
                   <div>
                     <label htmlFor="collegeName" className="block text-sm font-medium text-gray-700 mb-1">
                       College Name
@@ -146,7 +143,7 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* Department */}
+            
                   <div>
                     <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-1">
                       Department
@@ -159,7 +156,6 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* Year */}
                   <div>
                     <label htmlFor="year" className="block text-sm font-medium text-gray-700 mb-1">
                       Current Year
@@ -177,7 +173,7 @@ const RegisterForm = () => {
                     </select>
                   </div>
 
-                  {/* AWS Experience (Extra Field) */}
+             
                   <div>
                     <label htmlFor="awsExperience" className="block text-sm font-medium text-gray-700 mb-1">
                       AWS Experience Level
@@ -194,7 +190,7 @@ const RegisterForm = () => {
                     </select>
                   </div>
 
-                  {/* LinkedIn Profile (Extra Field) */}
+     
                   <div>
                     <label htmlFor="linkedin" className="block text-sm font-medium text-gray-700 mb-1">
                       LinkedIn Profile URL (Optional)
@@ -207,7 +203,7 @@ const RegisterForm = () => {
                     />
                   </div>
 
-                  {/* Payment Mode */}
+             
                   <div>
                     <label htmlFor="paymentMode" className="block text-sm font-medium text-gray-700 mb-1">
                       Payment Mode
@@ -224,7 +220,7 @@ const RegisterForm = () => {
                     </select>
                   </div>
 
-                  {/* Payment Proof */}
+               
                   <div>
                     <label htmlFor="paymentProof" className="block text-sm font-medium text-gray-700 mb-1">
                       Payment Proof Screenshot
@@ -240,10 +236,10 @@ const RegisterForm = () => {
                     </p>
                   </div>
 
-                  {/* Submit Button */}
+            
                   <button
                     type="submit"
-                    disabled={isSubmitting} // Disable button when submitting
+                    disabled={isSubmitting}
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (

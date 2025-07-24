@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import EditModal from "../Editmodel"; // Corrected typo: EditModal
+import EditModal from "../Editmodel";
 
 const AdminPage = () => {
   const [registrations, setRegistrations] = useState([]);
@@ -8,7 +8,7 @@ const AdminPage = () => {
 
 const fetchRegistrations = async () => {
   try {
-    const res = await axios.get("http://localhost:7700/api/qrscanner"); // CHANGE THIS LINE
+    const res = await axios.get("http://localhost:7700/api/qrscanner");
     setRegistrations(res.data);
   } catch (error) {
     console.error("Error fetching registrations:", error);
@@ -18,7 +18,7 @@ const fetchRegistrations = async () => {
 const handleDelete = async (id) => {
   if (!window.confirm("Are you sure you want to delete this registration?")) return;
   try {
-    await axios.delete(`http://localhost:7700/api/qrscanner/${id}`); // CHANGE THIS LINE
+    await axios.delete(`http://localhost:7700/api/qrscanner/${id}`);
     fetchRegistrations();
   } catch (error) {
     console.error("Error deleting registration:", error);
@@ -31,7 +31,7 @@ const handleDelete = async (id) => {
 
   return (
     <div className="p-6">
-      <h2 className="text-3xl font-bold mb-6">🛠️ Admin Dashboard</h2>
+      <h2 className="text-3xl font-bold mb-6"> Admin Dashboard</h2>
 
       <div className="overflow-x-auto">
         <table className="w-full border text-sm">
@@ -95,13 +95,12 @@ const handleDelete = async (id) => {
           </tbody>
         </table>
       </div>
-      {/* EditModal should only be rendered when selectedEdit is not null */}
       {selectedEdit && (
         <EditModal
-          open={!!selectedEdit} // This prop is redundant if conditionally rendered
+          open={!!selectedEdit}
           data={selectedEdit}
           onClose={() => setSelectedEdit(null)}
-          onSave={fetchRegistrations} // Renamed onUpdate to onSave for clarity with EditModal prop
+          onSave={fetchRegistrations}
         />
       )}
     </div>
