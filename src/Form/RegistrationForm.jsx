@@ -218,6 +218,7 @@ const RegisterForm = () => {
                       <option>Paytm</option>
                       <option>QR</option>
                     </select>
+                   <a href="/payment" className="text-black">Pay Money</a>
                   </div>
 
                

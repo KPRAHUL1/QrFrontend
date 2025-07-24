@@ -8,7 +8,7 @@ const QRPage = () => {
           value="https://genzteam.netlify.app/register"
           size={200}
           level="H"
-          fgColor="#000000"
+          fgColor="#7954FF"
         />
       </div>
     </div>
