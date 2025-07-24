@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { Loader2, X } from 'lucide-react'; // For loading icon and close button
+import { Loader2, X } from 'lucide-react'; 
 
 const EditModal = ({ open, data, onClose, onSave }) => {
   const { register, handleSubmit, reset, setValue } = useForm();
   const [isUpdating, setIsUpdating] = useState(false);
-  const [currentPaymentProof, setCurrentPaymentProof] = useState(null); // To store existing image URL
+  const [currentPaymentProof, setCurrentPaymentProof] = useState(null);
 
   useEffect(() => {
     if (open && data) {
-      // Populate form fields with existing data
+   
       for (const key in data) {
-        if (key !== 'paymentProof') { // Don't set file input directly
+        if (key !== 'paymentProof') { 
           setValue(key, data[key]);
         }
       }
-      // Set the current payment proof URL if it exists
+   
       if (data.paymentProof) {
         setCurrentPaymentProof(`http://localhost:7700/${data.paymentProof}`);
       } else {
         setCurrentPaymentProof(null);
       }
-      // Reset form state to ensure it's clean for new data
+    
       reset(data);
     }
   }, [open, data, reset, setValue]);
@@ -31,15 +31,14 @@ const EditModal = ({ open, data, onClose, onSave }) => {
     setIsUpdating(true);
     const updateData = new FormData();
 
-    // Append all form fields
+
     for (const key in formData) {
       if (key === 'paymentProof') {
-        // Only append new file if selected
+  
         if (formData[key] && formData[key][0]) {
           updateData.append(key, formData[key][0]);
         }
-        // If no new file and there was an existing one, we don't need to append it
-        // The backend should handle retaining the old file if no new one is provided.
+
       } else {
         updateData.append(key, formData[key]);
       }
@@ -51,12 +50,12 @@ const EditModal = ({ open, data, onClose, onSave }) => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert("Registration updated successfully!"); // Consider using a toast notification
-      onSave(); // Refresh data in AdminPage
-      onClose(); // Close the modal
+      alert("Registration updated successfully!"); 
+      onSave();
+      onClose();
     } catch (error) {
       console.error("Error updating registration:", error.response?.data || error.message);
-      alert(`Failed to update registration: ${error.response?.data?.error || "Please try again."}`); // Consider using a custom modal
+      alert(`Failed to update registration: ${error.response?.data?.error || "Please try again."}`); 
     } finally {
       setIsUpdating(false);
     }
@@ -77,7 +76,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
           Edit Registration
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Full Name */}
+
           <div>
             <label htmlFor="editFullName" className="block text-sm font-medium text-gray-700 mb-1">
               Full Name
@@ -90,7 +89,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* Email */}
+     
           <div>
             <label htmlFor="editEmail" className="block text-sm font-medium text-gray-700 mb-1">
               Email
@@ -104,7 +103,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* Phone */}
+       
           <div>
             <label htmlFor="editPhone" className="block text-sm font-medium text-gray-700 mb-1">
               Phone Number
@@ -117,7 +116,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* College Name */}
+         
           <div>
             <label htmlFor="editCollegeName" className="block text-sm font-medium text-gray-700 mb-1">
               College Name
@@ -130,7 +129,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* Department */}
+        
           <div>
             <label htmlFor="editDepartment" className="block text-sm font-medium text-gray-700 mb-1">
               Department
@@ -143,7 +142,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* Year */}
+      
           <div>
             <label htmlFor="editYear" className="block text-sm font-medium text-gray-700 mb-1">
               Current Year
@@ -160,8 +159,6 @@ const EditModal = ({ open, data, onClose, onSave }) => {
               <option>4th</option>
             </select>
           </div>
-
-          {/* AWS Experience Level (Extra Field) */}
           <div>
             <label htmlFor="editAwsExperience" className="block text-sm font-medium text-gray-700 mb-1">
               AWS Experience Level
@@ -178,7 +175,6 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             </select>
           </div>
 
-          {/* LinkedIn Profile URL (Extra Field) */}
           <div>
             <label htmlFor="editLinkedin" className="block text-sm font-medium text-gray-700 mb-1">
               LinkedIn Profile URL (Optional)
@@ -191,7 +187,6 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* New: Amount Field */}
           <div>
             <label htmlFor="editAmount" className="block text-sm font-medium text-gray-700 mb-1">
               Amount Paid ($)
@@ -206,7 +201,6 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             />
           </div>
 
-          {/* Payment Mode */}
           <div>
             <label htmlFor="editPaymentMode" className="block text-sm font-medium text-gray-700 mb-1">
               Payment Mode
@@ -223,7 +217,6 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             </select>
           </div>
 
-          {/* Payment Proof */}
           <div>
             <label htmlFor="editPaymentProof" className="block text-sm font-medium text-gray-700 mb-1">
               Payment Proof Screenshot
@@ -252,7 +245,7 @@ const EditModal = ({ open, data, onClose, onSave }) => {
             </p>
           </div>
 
-          {/* Submit Button */}
+    
           <button
             type="submit"
             disabled={isUpdating}

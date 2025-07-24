@@ -1,47 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Loader2, CheckCircle, XCircle } from 'lucide-react'; // Icons for loading and status
+import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 
 const Payment = () => {
   const [searchParams] = useSearchParams();
   const [paymentData, setPaymentData] = useState(null);
-  const [paymentStatus, setPaymentStatus] = useState('idle'); // 'idle', 'processing', 'success', 'failed'
+  const [paymentStatus, setPaymentStatus] = useState('idle');
 
-  // Effect to initially populate paymentData from URL params
   useEffect(() => {
     const dataFromParams = {
       name: searchParams.get('name') || 'John Doe',
       email: searchParams.get('email') || 'johndoe@example.com',
       amount: searchParams.get('amount') || '499',
       method: searchParams.get('method') || 'Test UPI',
-      paymentId: searchParams.get('paymentId') || 'PAY' + Math.floor(Math.random() * 1000000000), // Generate a random ID for dummy
+      paymentId: searchParams.get('paymentId') || 'PAY' + Math.floor(Math.random() * 1000000000),
       date: new Date().toLocaleString(),
     };
     setPaymentData(dataFromParams);
-  }, [searchParams]); // Depend on searchParams to re-run if URL changes
+  }, [searchParams]);
 
   const handleDummyPayment = () => {
     setPaymentStatus('processing');
-    // Simulate an asynchronous payment process
+
     setTimeout(() => {
-      const success = Math.random() > 0.2; // 80% chance of success, 20% chance of failure for testing
+      const success = Math.random() > 0.2;
       if (success) {
         setPaymentStatus('success');
-        // If successful, ensure paymentData is set (it should already be from useEffect, but good to confirm)
-        // setPaymentData(dataFromParams); // This line might be redundant if useEffect already ran
       } else {
         setPaymentStatus('failed');
       }
-    }, 2000); // Simulate 2 seconds of processing
+    }, 2000);
   };
 
   const resetPayment = () => {
     setPaymentStatus('idle');
-    // Optionally, clear paymentData if you want to re-fetch/re-simulate from scratch
-    // setPaymentData(null);
+
   };
 
-  // Show loading state if paymentData is not yet populated from searchParams
   if (!paymentData && paymentStatus === 'idle') {
     return <p className="min-h-screen flex items-center justify-center text-gray-700">Loading payment details...</p>;
   }
@@ -102,7 +97,6 @@ const Payment = () => {
             >
               Back to Payment Options
             </button>
-            {/* You can add a link to a "thank you" or "home" page here */}
             <a href="/register" className="mt-4 text-blue-600 hover:underline">Go to Home</a>
           </div>
         )}

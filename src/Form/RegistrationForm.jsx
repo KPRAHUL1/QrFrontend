@@ -218,7 +218,7 @@ const RegisterForm = () => {
                       <option>Paytm</option>
                       <option>QR</option>
                     </select>
-                   <a href="/payment" className="text-black">Pay Money</a>
+                   <a href="/payment" className="text-black px-3 py-2 mt-10  rounded-xl">Pay Money <span className="text-xl">$30</span></a>
                   </div>
 
                
